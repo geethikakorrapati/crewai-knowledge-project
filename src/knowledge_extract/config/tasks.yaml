@@ -1,0 +1,42 @@
+qa_task:
+  description: >
+    You will answer the user's question: "{question}".
+
+    Constraints:
+    - Use ONLY the information found in the provided knowledge sources (PDFs).
+    - If the answer is not in the documents, say "I couldn't find this in the provided documents."
+    - Provide a short, accurate answer.
+    - Add a brief "Sources" line that lists the filenames (and page numbers if present in the chunk) you used.
+
+  expected_output: >
+    A concise answer (3-8 sentences max) followed by:
+    Sources: <filename> (page ?), <filename> (page ?)
+
+  agent: qa_agent
+
+validation_task:
+  description: >
+    Review the question: "{question}" and the answer provided by the 'Documentation QA Specialist'.
+    Cross-reference the answer with the information available in the PDF knowledge source.
+    - If the answer is accurate and fully supported, proceed.
+    - If the answer is inaccurate, you must correct it based ONLY on the documents.
+  expected_output: >
+    A single, structured string containing the original question and the final, verified answer.
+    The format MUST be exactly like this example, with "Question:" and "Answer:" on separate lines:
+
+    Question: [The User's Original Question]
+    Answer: [The Final Verified Answer]
+
+formatting_task:
+  description: >
+    Take the entire structured text output from the previous task.
+    Parse the "Question:" and "Answer:" from that text.
+    Create a valid markdown table containing this information.
+  expected_output: >
+    A single, complete markdown table with a header, a separator line, and one data row.
+    YOU MUST include the separator line `|---|---|`.
+    The final output MUST be ONLY the markdown table and nothing else.
+    Example format:
+    | Question                       | Answer                                   |
+    |--------------------------------|------------------------------------------|
+    | [The Question Parsed from Input] | [The Answer Parsed from Input]           |
