@@ -145,10 +145,4 @@ Let's create wonders together with the **power and simplicity of crewAI**.
 - Understanding the crew  
 - Support resources  
 
----
-
-If you want, I can also **add a small “Tips & Troubleshooting” section** at the end for Windows users to avoid CRLF issues and common pip/venv problems.  
-
-Do you want me to add that?
-```
 
